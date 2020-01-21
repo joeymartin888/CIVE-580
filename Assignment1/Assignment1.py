@@ -19,18 +19,18 @@ for t in conditions: # loop through conditions
 		means[x]=temp.mean()
 	print(means)
 	tp=pd.Series(means, index=months)
-	#tp.plot(kind='bar',rot=0)
-	#plt.xlabel("Months")	
-	#if t=="precip_mm":
-	#	plt.ylabel("Precipitation in mm")
-	#	tp.plot(title="Average Precipitation Monthly for Jump Creek")
-	#else:
-	#	plt.ylabel("Temperature in degrees Celsius")
-	#	if t=="tmax_C":
-	#		tp.plot(title="Maximum Monthly Temperatures for Jump Creek")
-	#	else:
-	#		tp.plot(title="Minimum Monthly Temperatures for Jump Creek")	
-	#plt.show()
+	tp.plot(kind='bar',rot=0)
+	plt.xlabel("Months")	
+	if t=="precip_mm":
+		plt.ylabel("Precipitation in mm")
+		tp.plot(title="Average Precipitation Monthly for Jump Creek")
+	else:
+		plt.ylabel("Temperature in degrees Celsius")
+		if t=="tmax_C":
+			tp.plot(title="Maximum Monthly Temperatures for Jump Creek")
+		else:
+			tp.plot(title="Minimum Monthly Temperatures for Jump Creek")	
+	plt.show()
 
 print("1022571_Duncan_Glenora.csv")
 for t in conditions: # loop through conditions
@@ -41,18 +41,18 @@ for t in conditions: # loop through conditions
 		means[x]=temp.mean()
 	print(means)
 	p=pd.Series(means, index=months)
-	#tp.plot(kind='bar',rot=0)
-	#plt.xlabel("Months")	
-	#if t=="precip_mm":
-	#	plt.ylabel("Precipitation in mm")
-	#	tp.plot(title="Average Precipitation Monthly for Duncan Glenora")
-	#else:
-	#	plt.ylabel("Temperature in degrees Celsius")
-	#	if t=="tmax_C":
-	#		tp.plot(title="Maximum Monthly Temperatures for Duncan Glenora")
-	#	else:
-	#		tp.plot(title="Minimum Monthly Temperatures for Duncan Glenora")	
-	#plt.show()
+	tp.plot(kind='bar',rot=0)
+	plt.xlabel("Months")	
+	if t=="precip_mm":
+		plt.ylabel("Precipitation in mm")
+		tp.plot(title="Average Precipitation Monthly for Duncan Glenora")
+	else:
+		plt.ylabel("Temperature in degrees Celsius")
+		if t=="tmax_C":
+			tp.plot(title="Maximum Monthly Temperatures for Duncan Glenora")
+		else:
+			tp.plot(title="Minimum Monthly Temperatures for Duncan Glenora")	
+	plt.show()
 
 #Coefficient of Variability
 print("jump")
