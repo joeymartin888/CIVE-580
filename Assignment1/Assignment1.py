@@ -55,7 +55,7 @@ for t in conditions: # loop through conditions
 	plt.show()
 
 #Coefficient of Variability
-print("jump")
+print("3B23P_Jump_Creek.csv")
 for x in range(1996, 2008): # loop through monthd
 	temp=jump['precip_mm'].where(jump['year']==(x)) # python zero-index
 	temp.dropna() #remove NaNs
@@ -77,6 +77,9 @@ print(dcov)
 
 
 #Snowfall and Snowpack Analysis
+
+print("3B23P_Jump_Creek.csv")
+
 snowj=jump['precip_mm'].where(((jump['tmin_C']+jump['tmax_C'])/2)<0) #avg<0
 totalj=jump['precip_mm']
 snowpercentj=snowj.sum()/totalj.sum()
@@ -87,6 +90,8 @@ snowminj=jump['precip_mm'].where(jump['tmin_C']<0) #min<0
 totalj=jump['precip_mm']
 snowminpercentj=snowminj.sum()/totalj.sum()
 print(snowminpercentj)
+
+print("1022571_Duncan_Glenora.csv")
 
 snowd=duncan['precip_mm'].where(((duncan['tmin_C']+jump['tmax_C'])/2)<0) #avg<0
 totald=duncan['precip_mm']
