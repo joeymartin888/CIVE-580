@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import pandas as pd
 import numpy as np
+cov=[0 for g in range(12)]
+psum=[0 for i in range(12)]
 means=[0 for i in range(12)]
 jump=pd.read_csv("3B23P_Jump_Creek.csv") #load in csvs
 duncan=pd.read_csv("1022571_Duncan_Glenora.csv")
@@ -52,4 +54,23 @@ for t in conditions: # loop through conditions
 			tp.plot(title="Minimum Monthly Temperatures for Duncan Glenora")	
 	plt.show()
 
+#Coefficient of Variability
+print("jump")
+for x in range(1996, 2008): # loop through monthd
+	temp=jump['precip_mm'].where(jump['year']==(x)) # python zero-index
+	temp.dropna() #remove NaNs
+	psum[x-1996]=temp.sum()
+	jsum=pd.Series(psum, index=range(1996, 2008))
+print(jsum)
+jcov=jsum.mean()/jsum.std()
+print(jcov)
 
+print("1022571_Duncan_Glenora.csv")
+for x in range(1996, 2008): # loop through monthd
+	temp=duncan['precip_mm'].where(duncan['year']==(x)) # python zero-index
+	temp.dropna() #remove NaNs
+	psum[x-1996]=temp.sum()
+	dsum=pd.Series(psum, index=range(1996, 2008))
+print(dsum)
+dcov=dsum.mean()/dsum.std()
+print(dcov)
