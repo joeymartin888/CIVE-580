@@ -1,8 +1,15 @@
-import unicodedata
+# CIVE 580 - Assignment 1
+
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 import pandas as pd
-import numpy as np
+
+#1. Calculate the seasonal cycle of precipitation and temperature 
+#(P and T, respectively) for both stations. The seasonal cycle 
+#would be averaging all January months together, then all February, 
+#etc. How do the seasonal cycles compare across stations? (Hint: a 
+#figure would be very useful to answer this question).
+
+
 cov=[0 for g in range(12)]
 psum=[0 for i in range(12)]
 means=[0 for i in range(12)]
@@ -54,7 +61,10 @@ for t in conditions: # loop through conditions
 			tp.plot(title="Minimum Monthly Temperatures for Duncan Glenora")	
 	plt.show()
 
-#Coefficient of Variability
+#2. Calculate the coefficient of variability for annual precipitation for each 
+#station. How do they compare?
+    
+    
 print("3B23P_Jump_Creek.csv")
 for x in range(1996, 2008): # loop through monthd
 	temp=jump['precip_mm'].where(jump['year']==(x)) # python zero-index
@@ -76,7 +86,9 @@ dcov=dsum.mean()/dsum.std()
 print(dcov)
 
 
-#Snowfall and Snowpack Analysis
+#3. Using your answers above and your understanding of the water budget 
+#equation from our first week of class (ds/dt = P-ET-streamflow), how important 
+#is snowfall and the seasonal snowpack in this basin?
 
 print("3B23P_Jump_Creek.csv")
 
