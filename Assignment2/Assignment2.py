@@ -48,7 +48,7 @@ for both streamflow and precipitation, calculate 10 runoff ratios).
 Plot the time series of the runoff ratios and discuss how they vary 
 interannually (Hint: use some statistics to back up your answer!)"""
 
-timeframe1=range(1994,2004)
+timeframe1=range(1994,2004) #due to zero indexing, the end year is not included
 arratio=pd.Series(index=timeframe1)
 annualp=psorted["precip_mm"].where(psorted["water year"]==1994)
 
@@ -67,7 +67,6 @@ arratio.plot(kind='bar',rot=0)
 plt.xlabel("Water Years")	
 plt.ylabel("Runoff ratio")
 plt.title("Runoff Ratios for Duncan Glenora from %s " % str(np.amin(timeframe1)) + "to %s" % str(np.amax(timeframe1)))
-#arratio.plot()
 plt.show()
 #title=() )
 
@@ -78,20 +77,29 @@ example how do the two January runoff ratios compare)?"""
 
 months=["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
-timeframe2=[2006,2007]
-temp=range(2)
-mrratio=pd.Series(index=months)
+timeframe2=range(2006, 2008) #due to zero indexing, the end year is not included
+rryears=range(len(timeframe2))+np.amin(timeframe2)
+for i in range(len(rryears)): #convert time frame years into str for DataFrame columns
+    rryears[i]=str(rryears[i])
+mrratio=pd.DataFrame(columns=rryears, index=months)
 for m in months:
-    for year in timeframe2:
-        monthlyp=psorted["precip_mm"].where((psorted["water year"]==year) & (psorted["month"]==(months.index(m)+1)))
-        monthlyq=qsorted["Q_mms"].where((qsorted["water year"]==year) & (qsorted["month"]==(months.index(m)+1)))
-        temp[year-np.amin(timeframe2)]=monthlyq.mean()/monthlyp.mean() #there should be a better way...
-        mrratio[m]=temp #still buggy here...
+    for year in rryears:
+        monthlyp=psorted["precip_mm"].where((psorted["water year"]==int(year)) & (psorted["month"]==(months.index(m)+1)))
+        monthlyq=qsorted["Q_mms"].where((qsorted["water year"]==int(year)) & (qsorted["month"]==(months.index(m)+1)))
+        mrratio.loc[m, year]=monthlyq.mean()/monthlyp.mean() #there must be a better way...
 print(mrratio)
+
+mrratio.plot(kind='bar',rot=0)
+plt.xlabel("Months")	
+plt.ylabel("Runoff ratio")
+plt.title("Runoff Ratios for Duncan Glenora from %s " % str(np.amin(timeframe2)) + "to %s" % str(np.amax(timeframe2)))
+plt.show()
                         
                         
 """Question 3: Calculate and plot a monthly water budget for two years of data.
 Discuss how the seasonality of the water budget varies across variables, the 
 intra- and interannual variability, and the sources of uncertainty in the water
 budget."""
-   
+
+ETin=pd.read_csv("North_Cowichan_ET_2005-2008.csv")
+print(ETin)
