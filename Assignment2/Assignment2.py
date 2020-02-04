@@ -102,8 +102,7 @@ intra- and interannual variability, and the sources of uncertainty in the water
 budget."""
 
 ETin=pd.read_csv("North_Cowichan_ET_2005-2008.csv")
-ETsorted=pd.DataFrame(columns = ["water year", "month", "ET"])
-print(ETin.columns)
+ETsorted=pd.DataFrame(columns = ["water year", "month", "ET_mm"], index=months)
 
 for data in range(len(ETin["Date"])):
     ETsorted.loc[data,"month"]=int(ETin.loc[data,"Date"][5:7]) #making months useable integers
@@ -111,6 +110,18 @@ for data in range(len(ETin["Date"])):
         ETsorted.loc[data,"water year"]=int(ETin.loc[data,"Date"][0:4])-1 #making years useable integers
     else:
         ETsorted.loc[data,"water year"]=int(ETin.loc[data,"Date"][0:4]) #making years useable integers
-    ETsorted.loc[data,"ET"]=ETin.loc[data,"ET"]
+    ETsorted.loc[data,"ET_mm"]=ETin.loc[data,"ET"]
 
-print(ETsorted)
+timeframe3=range(2006, 2008) #due to zero indexing, the end year is not included
+rryears2=range(len(timeframe3))+np.amin(timeframe3)
+for i in range(len(rryears2)): #convert time frame years into str for DataFrame columns
+    rryears2[i]=str(rryears2[i])
+budget=pd.DataFrame(columns=rryears2, index=months)
+for m in months:
+    for year in rryears2:
+        budgetp=psorted["precip_mm"].where((psorted["water year"]==int(year)) & (psorted["month"]==(months.index(m)+1)))
+        budgetq=qsorted["Q_mms"].where((qsorted["water year"]==int(year)) & (qsorted["month"]==(months.index(m)+1)))
+	budgetET=ETsorted["ET_mm"].where((ETsorted["water year"]==int(year)) & (ETsorted["month"]==(months.index(m)+1)))
+	print(budgetET.sum())
+	budget.loc[m, year]=budgetp.mean()-budgetq.mean()-budgetET.sum()
+print(budget)
