@@ -63,13 +63,13 @@ for year in timeframe1:
 
 print(arratio)
 
-arratio.plot(kind='bar',rot=0)
+"""arratio.plot(kind='bar',rot=0)
 plt.xlabel("Water Years")	
 plt.ylabel("Runoff ratio")
 plt.title("Runoff Ratios for Duncan Glenora from %s " % str(np.amin(timeframe1)) + "to %s" % str(np.amax(timeframe1)))
 plt.show()
 #title=() )
-
+"""
  
 """Question 2: Calculate monthly runoff ratios for two years of data. How do 
 they vary intraannually (within a year) and interannually (across years, for 
@@ -89,11 +89,11 @@ for m in months:
         mrratio.loc[m, year]=monthlyq.mean()/monthlyp.mean() #there must be a better way...
 print(mrratio)
 
-mrratio.plot(kind='bar',rot=0)
+"""mrratio.plot(kind='bar',rot=0)
 plt.xlabel("Months")	
 plt.ylabel("Runoff ratio")
 plt.title("Runoff Ratios for Duncan Glenora from %s " % str(np.amin(timeframe2)) + "to %s" % str(np.amax(timeframe2)))
-plt.show()
+plt.show()"""
                         
                         
 """Question 3: Calculate and plot a monthly water budget for two years of data.
@@ -102,4 +102,15 @@ intra- and interannual variability, and the sources of uncertainty in the water
 budget."""
 
 ETin=pd.read_csv("North_Cowichan_ET_2005-2008.csv")
-print(ETin)
+ETsorted=pd.DataFrame(columns = ["water year", "month", "ET"])
+print(ETin.columns)
+
+for data in range(len(ETin["Date"])):
+    ETsorted.loc[data,"month"]=int(ETin.loc[data,"Date"][5:7]) #making months useable integers
+    if int(ETin.loc[data,"Date"][5:7])<10: #to organize by water year 1 Oct - 30 Sep
+        ETsorted.loc[data,"water year"]=int(ETin.loc[data,"Date"][0:4])-1 #making years useable integers
+    else:
+        ETsorted.loc[data,"water year"]=int(ETin.loc[data,"Date"][0:4]) #making years useable integers
+    ETsorted.loc[data,"ET"]=ETin.loc[data,"ET"]
+
+print(ETsorted)
